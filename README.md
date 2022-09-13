@@ -1,5 +1,4 @@
 # Pixelor
-https://github.com/Resethel/Pixelor
 
 >This C++ program creates a pixelated version of an image.
 >It basically takes the average color of an area around a pixel and then fill the area with the said color.
