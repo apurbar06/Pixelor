@@ -1,0 +1,100 @@
+        -:    0:Source:../src/Utils.cpp
+        -:    0:Graph:Utils.gcno
+        -:    0:Data:Utils.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/*
+        -:    2: *
+        -:    3: *
+        -:    4: */
+        -:    5:#include "Utils.hpp"
+        -:    6:
+        -:    7:
+        -:    8:
+        -:    9:
+function _Z17euclidianDistanceRN2sf7Vector3IfEES2_ called 163840000 returned 100% blocks executed 100%
+163840000:   10:float euclidianDistance(sf::Vector3f& vA, sf::Vector3f& vB)
+        -:   11:{
+163840000:   12:    return(sqrt(pow(vA.x - vB.x, 2) + pow(vA.y - vB.y, 2) + pow(vA.z - vB.z, 2)));
+        -:   13:}
+        -:   14:
+function _Z17euclidianDistanceRN2sf5ColorES1_ called 163840000 returned 100% blocks executed 100%
+163840000:   15:float euclidianDistance(sf::Color& cA, sf::Color& cB)
+        -:   16:{
+163840000:   17:    auto a = sf::Vector3f(cA.r, cA.g, cA.b);
+call    0 returned 163840000
+163840000:   18:    auto b = sf::Vector3f(cB.r, cB.g, cB.b);
+call    0 returned 163840000
+        -:   19:
+163840000:   20:    return(euclidianDistance(a,b));
+call    0 returned 163840000
+        -:   21:}
+        -:   22:
+        -:   23:
+        -:   24:
+        -:   25:
+        -:   26:
+        -:   27:
+function _Z13checkFileNameRNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE called 0 returned 0% blocks executed 0%
+    #####:   28:bool checkFileName(std::string& filename)
+        -:   29:{
+        -:   30:    //TODO Make this function validate if the name is valid
+    #####:   31:    return true;
+        -:   32:}
+        -:   33:
+        -:   34:
+        -:   35:
+function _Z11sizeIsValidjjj called 1 returned 100% blocks executed 17%
+        1:   36:bool sizeIsValid(unsigned sizeX, unsigned sizeY, unsigned pixDiv)
+        -:   37:{
+        1:   38:    bool isValid = true;
+        -:   39:
+        1:   40:    if (sizeX % pixDiv != 0)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+        -:   41:    {
+    #####:   42:        std::cout << "ERROR: Image width is not divisible by pixel size (" << pixDiv << ").\n";
+call    0 never executed
+call    1 never executed
+call    2 never executed
+    #####:   43:        std::cout << "Width is size " << sizeX <<'\n';
+call    0 never executed
+call    1 never executed
+call    2 never executed
+    #####:   44:        std::cout << "Modulo: " << sizeX % pixDiv << "\n";
+call    0 never executed
+call    1 never executed
+call    2 never executed
+        -:   45:
+    #####:   46:        isValid = false;
+        -:   47:    }
+        -:   48:
+        1:   49:    if (sizeY % pixDiv != 0)
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+        -:   50:    {
+    #####:   51:        std::cout << "ERROR: Image height is not divisible by pixel size (" << pixDiv << ").\n";
+call    0 never executed
+call    1 never executed
+call    2 never executed
+    #####:   52:        std::cout << "Height is size " << sizeY <<'\n';
+call    0 never executed
+call    1 never executed
+call    2 never executed
+    #####:   53:        std::cout << "Modulo: " << sizeY % pixDiv << "\n";
+call    0 never executed
+call    1 never executed
+call    2 never executed
+        -:   54:
+    #####:   55:        isValid = false;
+        -:   56:    }
+        -:   57:
+        1:   58:    return isValid;
+function _GLOBAL__sub_I__Z17euclidianDistanceRN2sf7Vector3IfEES2_ called 1 returned 100% blocks executed 100%
+function _Z41__static_initialization_and_destruction_0ii called 1 returned 100% blocks executed 100%
+        3:   59:}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0
+branch  3 taken 1 (fallthrough)
+branch  4 taken 0

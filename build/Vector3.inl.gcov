@@ -1,0 +1,174 @@
+        -:    0:Source:/usr/include/SFML/System/Vector3.inl
+        -:    0:Graph:KMeans.gcno
+        -:    0:Data:KMeans.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:////////////////////////////////////////////////////////////
+        -:    2://
+        -:    3:// SFML - Simple and Fast Multimedia Library
+        -:    4:// Copyright (C) 2007-2016 Laurent Gomila (laurent@sfml-dev.org)
+        -:    5://
+        -:    6:// This software is provided 'as-is', without any express or implied warranty.
+        -:    7:// In no event will the authors be held liable for any damages arising from the use of this software.
+        -:    8://
+        -:    9:// Permission is granted to anyone to use this software for any purpose,
+        -:   10:// including commercial applications, and to alter it and redistribute it freely,
+        -:   11:// subject to the following restrictions:
+        -:   12://
+        -:   13:// 1. The origin of this software must not be misrepresented;
+        -:   14://    you must not claim that you wrote the original software.
+        -:   15://    If you use this software in a product, an acknowledgment
+        -:   16://    in the product documentation would be appreciated but is not required.
+        -:   17://
+        -:   18:// 2. Altered source versions must be plainly marked as such,
+        -:   19://    and must not be misrepresented as being the original software.
+        -:   20://
+        -:   21:// 3. This notice may not be removed or altered from any source distribution.
+        -:   22://
+        -:   23:////////////////////////////////////////////////////////////
+        -:   24:
+        -:   25:
+        -:   26:////////////////////////////////////////////////////////////
+        -:   27:template <typename T>
+function _ZN2sf7Vector3IfEC2Ev called 0 returned 0% blocks executed 0%
+    #####:   28:inline Vector3<T>::Vector3() :
+        -:   29:x(0),
+        -:   30:y(0),
+    #####:   31:z(0)
+        -:   32:{
+        -:   33:
+    #####:   34:}
+        -:   35:
+        -:   36:
+        -:   37:////////////////////////////////////////////////////////////
+        -:   38:template <typename T>
+        -:   39:inline Vector3<T>::Vector3(T X, T Y, T Z) :
+        -:   40:x(X),
+        -:   41:y(Y),
+        -:   42:z(Z)
+        -:   43:{
+        -:   44:
+        -:   45:}
+        -:   46:
+        -:   47:
+        -:   48:////////////////////////////////////////////////////////////
+        -:   49:template <typename T>
+        -:   50:template <typename U>
+        -:   51:inline Vector3<T>::Vector3(const Vector3<U>& vector) :
+        -:   52:x(static_cast<T>(vector.x)),
+        -:   53:y(static_cast<T>(vector.y)),
+        -:   54:z(static_cast<T>(vector.z))
+        -:   55:{
+        -:   56:}
+        -:   57:
+        -:   58:
+        -:   59:////////////////////////////////////////////////////////////
+        -:   60:template <typename T>
+        -:   61:inline Vector3<T> operator -(const Vector3<T>& left)
+        -:   62:{
+        -:   63:    return Vector3<T>(-left.x, -left.y, -left.z);
+        -:   64:}
+        -:   65:
+        -:   66:
+        -:   67:////////////////////////////////////////////////////////////
+        -:   68:template <typename T>
+        -:   69:inline Vector3<T>& operator +=(Vector3<T>& left, const Vector3<T>& right)
+        -:   70:{
+        -:   71:    left.x += right.x;
+        -:   72:    left.y += right.y;
+        -:   73:    left.z += right.z;
+        -:   74:
+        -:   75:    return left;
+        -:   76:}
+        -:   77:
+        -:   78:
+        -:   79:////////////////////////////////////////////////////////////
+        -:   80:template <typename T>
+        -:   81:inline Vector3<T>& operator -=(Vector3<T>& left, const Vector3<T>& right)
+        -:   82:{
+        -:   83:    left.x -= right.x;
+        -:   84:    left.y -= right.y;
+        -:   85:    left.z -= right.z;
+        -:   86:
+        -:   87:    return left;
+        -:   88:}
+        -:   89:
+        -:   90:
+        -:   91:////////////////////////////////////////////////////////////
+        -:   92:template <typename T>
+        -:   93:inline Vector3<T> operator +(const Vector3<T>& left, const Vector3<T>& right)
+        -:   94:{
+        -:   95:    return Vector3<T>(left.x + right.x, left.y + right.y, left.z + right.z);
+        -:   96:}
+        -:   97:
+        -:   98:
+        -:   99:////////////////////////////////////////////////////////////
+        -:  100:template <typename T>
+        -:  101:inline Vector3<T> operator -(const Vector3<T>& left, const Vector3<T>& right)
+        -:  102:{
+        -:  103:    return Vector3<T>(left.x - right.x, left.y - right.y, left.z - right.z);
+        -:  104:}
+        -:  105:
+        -:  106:
+        -:  107:////////////////////////////////////////////////////////////
+        -:  108:template <typename T>
+        -:  109:inline Vector3<T> operator *(const Vector3<T>& left, T right)
+        -:  110:{
+        -:  111:    return Vector3<T>(left.x * right, left.y * right, left.z * right);
+        -:  112:}
+        -:  113:
+        -:  114:
+        -:  115:////////////////////////////////////////////////////////////
+        -:  116:template <typename T>
+        -:  117:inline Vector3<T> operator *(T left, const Vector3<T>& right)
+        -:  118:{
+        -:  119:    return Vector3<T>(right.x * left, right.y * left, right.z * left);
+        -:  120:}
+        -:  121:
+        -:  122:
+        -:  123:////////////////////////////////////////////////////////////
+        -:  124:template <typename T>
+        -:  125:inline Vector3<T>& operator *=(Vector3<T>& left, T right)
+        -:  126:{
+        -:  127:    left.x *= right;
+        -:  128:    left.y *= right;
+        -:  129:    left.z *= right;
+        -:  130:
+        -:  131:    return left;
+        -:  132:}
+        -:  133:
+        -:  134:
+        -:  135:////////////////////////////////////////////////////////////
+        -:  136:template <typename T>
+        -:  137:inline Vector3<T> operator /(const Vector3<T>& left, T right)
+        -:  138:{
+        -:  139:    return Vector3<T>(left.x / right, left.y / right, left.z / right);
+        -:  140:}
+        -:  141:
+        -:  142:
+        -:  143:////////////////////////////////////////////////////////////
+        -:  144:template <typename T>
+        -:  145:inline Vector3<T>& operator /=(Vector3<T>& left, T right)
+        -:  146:{
+        -:  147:    left.x /= right;
+        -:  148:    left.y /= right;
+        -:  149:    left.z /= right;
+        -:  150:
+        -:  151:    return left;
+        -:  152:}
+        -:  153:
+        -:  154:
+        -:  155:////////////////////////////////////////////////////////////
+        -:  156:template <typename T>
+        -:  157:inline bool operator ==(const Vector3<T>& left, const Vector3<T>& right)
+        -:  158:{
+        -:  159:    return (left.x == right.x) && (left.y == right.y) && (left.z == right.z);
+        -:  160:}
+        -:  161:
+        -:  162:
+        -:  163:////////////////////////////////////////////////////////////
+        -:  164:template <typename T>
+        -:  165:inline bool operator !=(const Vector3<T>& left, const Vector3<T>& right)
+        -:  166:{
+        -:  167:    return (left.x != right.x) || (left.y != right.y) || (left.z != right.z);
+        -:  168:}

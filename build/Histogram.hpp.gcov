@@ -1,0 +1,65 @@
+        -:    0:Source:../src/Histogram.hpp
+        -:    0:Graph:Quantization.gcno
+        -:    0:Data:Quantization.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1://
+        -:    2://
+        -:    3://
+        -:    4:
+        -:    5:#ifndef Histogram_hpp
+        -:    6:#define Histogram_hpp
+        -:    7:
+        -:    8:#include <cmath>
+        -:    9:#include <map>
+        -:   10:#include <string>
+        -:   11:#include <sstream>
+        -:   12:#include <utility>
+        -:   13:#include <vector>
+        -:   14:
+        -:   15:#include <iostream>
+        -:   16:
+        -:   17:#include <SFML/Graphics.hpp>
+        -:   18:
+        -:   19:#include "Utils.hpp"
+        -:   20:
+        -:   21:const unsigned DIMENSION_MAX = 256;
+        -:   22:
+        -:   23:using Frame = std::vector<sf::Color>;
+        -:   24:
+function _ZN9HistogramD2Ev called 1 returned 100% blocks executed 100%
+        1:   25:class Histogram
+call    0 returned 1
+        -:   26:{
+        -:   27:public:
+        -:   28:
+        -:   29:    // Constructors
+        -:   30:    Histogram(Frame& data, unsigned nBuckets);
+        -:   31:    Histogram(Frame& data);
+        -:   32:
+        -:   33:    //
+        -:   34:    void build(Frame& data);
+        -:   35:    void display() const;
+        -:   36:
+        -:   37:    sf::Color keyToColor(const std::string& color);
+        -:   38:
+        -:   39:    // this function return the n most populated bins
+        -:   40:    Frame       getPalette(unsigned nColors);
+        -:   41:    // getters
+        -:   42:    std::string getPixelKey(sf::Color& pixel) const;
+        -:   43:    size_t      getBinWeight(std::string key) const;
+        -:   44:    size_t      getBinWeight(sf::Color& color) const;
+        -:   45:
+        -:   46:
+        -:   47:
+        -:   48:private:
+        -:   49:
+        -:   50:    std::map<std::string, size_t> bins;
+        -:   51:
+        -:   52:    unsigned bucketsPerDimension;
+        -:   53:    unsigned bucketSize;
+        -:   54:
+        -:   55:};
+        -:   56:
+        -:   57:
+        -:   58:#endif /* Histogram_hpp */

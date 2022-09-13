@@ -1,0 +1,445 @@
+        -:    0:Source:../src/Quantization.cpp
+        -:    0:Graph:Quantization.gcno
+        -:    0:Data:Quantization.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/*
+        -:    2: *
+        -:    3: *
+        -:    4: */
+        -:    5:#include "Quantization.hpp"
+        -:    6:
+        -:    7:#include <iostream>
+        -:    8:
+        -:    9:#include "Histogram.hpp"
+function _Z15quantize_randomN2sf5ImageEj called 0 returned 0% blocks executed 0%
+    #####:   10:sf::Image quantize_random(sf::Image image, unsigned nColors)
+        -:   11:{
+        -:   12:    // Preparing the output image...
+    #####:   13:    unsigned width  = image.getSize().x;
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    #####:   14:    unsigned height = image.getSize().y;
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+        -:   15:
+    #####:   16:    sf::Image result;
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    #####:   17:    result.create(width, height, sf::Color::White);
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+        -:   18:
+        -:   19:
+        -:   20:    //Transforming the 2D image matrix into a 1D color array
+    #####:   21:    std::vector<sf::Color> colorArray;
+call    0 never executed
+call    1 never executed
+call    2 never executed
+call    3 never executed
+    #####:   22:    for(size_t y(0); y < height; y++)
+branch  0 never executed
+branch  1 never executed
+    #####:   23:    for(size_t x(0); x < width; x++)
+branch  0 never executed
+branch  1 never executed
+        -:   24:    {
+    #####:   25:        colorArray.push_back(image.getPixel(x,y));
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+call    3 never executed
+branch  4 never executed
+branch  5 never executed
+call    6 never executed
+        -:   26:    }
+        -:   27:
+        -:   28:    // Selecting the palette
+    #####:   29:    std::random_device seed;
+call    0 never executed
+call    1 never executed
+branch  2 never executed
+branch  3 never executed
+call    4 never executed
+branch  5 never executed
+branch  6 never executed
+call    7 never executed
+call    8 never executed
+call    9 never executed
+call   10 never executed
+call   11 never executed
+    #####:   30:    std::mt19937 rng(seed());
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+call    3 never executed
+branch  4 never executed
+branch  5 never executed
+        -:   31:
+    #####:   32:    auto shuffled = colorArray;
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+call    3 never executed
+call    4 never executed
+    #####:   33:    std::shuffle(shuffled.begin(), shuffled.end(), rng);
+call    0 never executed
+call    1 never executed
+call    2 never executed
+branch  3 never executed
+branch  4 never executed
+    #####:   34:    std::vector<sf::Color> palette(shuffled.begin(), shuffled.begin() + nColors);
+call    0 never executed
+call    1 never executed
+call    2 never executed
+call    3 never executed
+call    4 never executed
+branch  5 never executed
+branch  6 never executed
+call    7 never executed
+call    8 never executed
+call    9 never executed
+call   10 never executed
+        -:   35:
+        -:   36:    // For each point in colorArray, computing the closest color in the palette
+        -:   37:    // TODO Optimize this part as it is a function in O(N*Z) where Z <= N
+        -:   38:
+    #####:   39:    std::vector<sf::Color> colorArray_quantized;
+call    0 never executed
+call    1 never executed
+call    2 never executed
+    #####:   40:    std::pair<int, float> minimalDistance; // first is the pos, second the distance
+        -:   41:    float distance;
+        -:   42:
+    #####:   43:    for(auto &c : colorArray)
+call    0 never executed
+call    1 never executed
+call    2 never executed
+branch  3 never executed
+branch  4 never executed
+call    5 never executed
+call    6 never executed
+        -:   44:    {
+    #####:   45:        minimalDistance.first = -1;
+    #####:   46:        minimalDistance.second = std::numeric_limits<float>::max();;
+call    0 never executed
+        -:   47:
+    #####:   48:        for(unsigned i(0); i < nColors; i++)
+branch  0 never executed
+branch  1 never executed
+        -:   49:        {
+    #####:   50:            distance = euclidianDistance(c, palette[i]);
+call    0 never executed
+call    1 never executed
+branch  2 never executed
+branch  3 never executed
+    #####:   51:            if(minimalDistance.second > distance)
+branch  0 never executed
+branch  1 never executed
+        -:   52:            {
+    #####:   53:                minimalDistance.first = i;
+    #####:   54:                minimalDistance.second = distance;
+        -:   55:            }
+        -:   56:        }
+        -:   57:
+    #####:   58:        colorArray_quantized.push_back(palette[minimalDistance.first]);
+call    0 never executed
+call    1 never executed
+branch  2 never executed
+branch  3 never executed
+        -:   59:    }
+        -:   60:
+        -:   61:
+        -:   62:    // Going back to a 2D Image
+    #####:   63:    for(size_t x(0); x < width; x++)
+branch  0 never executed
+branch  1 never executed
+    #####:   64:    for(size_t y(0); y < height; y++)
+branch  0 never executed
+branch  1 never executed
+        -:   65:    {
+    #####:   66:        result.setPixel(x,y,colorArray_quantized[(y * width) + x]);
+call    0 never executed
+call    1 never executed
+branch  2 never executed
+branch  3 never executed
+        -:   67:    }
+        -:   68:
+        -:   69:
+        -:   70:    // return ...
+        -:   71:
+    #####:   72:    return result;
+        -:   73:
+        -:   74:}
+        -:   75:
+        -:   76:
+        -:   77:
+function _Z15quantize_KMeansN2sf5ImageEj called 0 returned 0% blocks executed 0%
+    #####:   78:sf::Image quantize_KMeans(sf::Image image, unsigned nColors)
+        -:   79:{
+        -:   80:    // Preparing the output image...
+    #####:   81:    unsigned width  = image.getSize().x;
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    #####:   82:    unsigned height = image.getSize().y;
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+        -:   83:
+    #####:   84:    sf::Image result;
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    #####:   85:    result.create(width, height, sf::Color::White);
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+        -:   86:
+        -:   87:    //Transforming the 2D image matrix into a 1D color array
+    #####:   88:    std::vector<sf::Color> colorArray;
+call    0 never executed
+call    1 never executed
+call    2 never executed
+call    3 never executed
+    #####:   89:    for(size_t y(0) ; y < height ; y++)
+branch  0 never executed
+branch  1 never executed
+    #####:   90:    for(size_t x(0) ; x < width ; x++)
+branch  0 never executed
+branch  1 never executed
+        -:   91:    {
+    #####:   92:        colorArray.push_back(image.getPixel(x,y));
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+call    3 never executed
+branch  4 never executed
+branch  5 never executed
+        -:   93:    }
+        -:   94:
+        -:   95:    // // Selecting the palette
+        -:   96:    // std::random_device rd;
+        -:   97:    // std::mt19937 rng(rd());
+        -:   98:    //
+        -:   99:    // auto shuffled = colorArray;
+        -:  100:    // std::shuffle(shuffled.begin(), shuffled.end(), rng);
+    #####:  101:     std::vector<sf::Color> palette = KMeans(colorArray, nColors, 5);
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+call    3 never executed
+call    4 never executed
+        -:  102:
+        -:  103:    // For each point in colorArray, computing the closest color in the palette
+        -:  104:    // TODO Optimize this part as it is a function in O(N*Z) where Z <= N
+        -:  105:    //
+    #####:  106:    std::vector<sf::Color> colorArray_quantized;
+call    0 never executed
+call    1 never executed
+call    2 never executed
+    #####:  107:    std::pair<int, float> minimalDistance; // first is the pos, second the distance
+        -:  108:    float distance;
+        -:  109:
+    #####:  110:    for(auto &c : colorArray)
+call    0 never executed
+call    1 never executed
+call    2 never executed
+branch  3 never executed
+branch  4 never executed
+call    5 never executed
+call    6 never executed
+        -:  111:    {
+    #####:  112:        minimalDistance.first = -1;
+    #####:  113:        minimalDistance.second = std::numeric_limits<float>::max();;
+call    0 never executed
+        -:  114:
+    #####:  115:        for(unsigned i(0) ; i < nColors ; i++)
+branch  0 never executed
+branch  1 never executed
+        -:  116:        {
+    #####:  117:            distance = euclidianDistance(c, palette[i]);
+call    0 never executed
+call    1 never executed
+branch  2 never executed
+branch  3 never executed
+    #####:  118:            if(minimalDistance.second > distance)
+branch  0 never executed
+branch  1 never executed
+        -:  119:            {
+    #####:  120:                minimalDistance.first = i;
+    #####:  121:                minimalDistance.second = distance;
+        -:  122:            }
+        -:  123:        }
+        -:  124:
+    #####:  125:        colorArray_quantized.push_back(palette[minimalDistance.first]);
+call    0 never executed
+call    1 never executed
+branch  2 never executed
+branch  3 never executed
+        -:  126:    }
+        -:  127:
+        -:  128:
+        -:  129:    // Going back to a 2D Image
+    #####:  130:    for(size_t x(0); x < width; x++)
+branch  0 never executed
+branch  1 never executed
+    #####:  131:    for(size_t y(0); y < height; y++)
+branch  0 never executed
+branch  1 never executed
+        -:  132:    {
+    #####:  133:        result.setPixel(x,y,colorArray_quantized[(y * width) + x]);
+call    0 never executed
+call    1 never executed
+branch  2 never executed
+branch  3 never executed
+        -:  134:    }
+        -:  135:
+        -:  136:
+        -:  137:    // return ...
+        -:  138:
+    #####:  139:    return result;
+        -:  140:
+        -:  141:}
+        -:  142:
+        -:  143:
+function _Z13quantize_HistN2sf5ImageEj called 1 returned 100% blocks executed 80%
+        1:  144:sf::Image quantize_Hist(sf::Image image, unsigned nColors)
+        -:  145:{
+        -:  146:    // Preparing the output image...
+        1:  147:    unsigned width  = image.getSize().x;
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  148:    unsigned height = image.getSize().y;
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  149:
+        1:  150:    sf::Image result;
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  151:    result.create(width, height, sf::Color::White);
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  152:
+        -:  153:    //Transforming the 2D image matrix into a 1D color array
+        2:  154:    std::vector<sf::Color> colorArray;
+call    0 returned 1
+call    1 returned 1
+call    2 never executed
+call    3 never executed
+     1601:  155:    for(size_t y(0) ; y < height ; y++)
+branch  0 taken 1600 (fallthrough)
+branch  1 taken 1
+  2561600:  156:    for(size_t x(0) ; x < width ; x++)
+branch  0 taken 2560000 (fallthrough)
+branch  1 taken 1600
+        -:  157:    {
+  2560000:  158:        colorArray.push_back(image.getPixel(x,y));
+call    0 returned 2560000
+branch  1 taken 2560000 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 2560000
+branch  4 taken 2560000 (fallthrough)
+branch  5 taken 0 (throw)
+        -:  159:    }
+        -:  160:
+        2:  161:    Histogram hist(colorArray, 10);
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 1
+call    4 never executed
+        2:  162:    auto palette = hist.getPalette(nColors);
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 1
+call    4 never executed
+        -:  163:
+        -:  164:
+        -:  165:
+        -:  166:    // For each point in colorArray, computing the closest color in the palette
+        -:  167:    // TODO Optimize this part as it is a function in O(N*Z) where Z <= N
+        -:  168:    //
+        2:  169:    std::vector<sf::Color> colorArray_quantized;
+call    0 returned 1
+call    1 returned 1
+call    2 never executed
+        1:  170:    std::pair<int, float> minimalDistance; // first is the pos, second the distance
+        -:  171:    float distance;
+        -:  172:
+  2560001:  173:    for(auto &c : colorArray)
+call    0 returned 1
+call    1 returned 1
+call    2 returned 2560001
+branch  3 taken 2560000 (fallthrough)
+branch  4 taken 1
+call    5 returned 2560000
+call    6 returned 2560000
+        -:  174:    {
+  2560000:  175:        minimalDistance.first = -1;
+  2560000:  176:        minimalDistance.second = std::numeric_limits<float>::max();;
+call    0 returned 2560000
+        -:  177:
+166400000:  178:        for(unsigned i(0) ; i < nColors ; i++)
+branch  0 taken 163840000 (fallthrough)
+branch  1 taken 2560000
+        -:  179:        {
+163840000:  180:            distance = euclidianDistance(c, palette[i]);
+call    0 returned 163840000
+call    1 returned 163840000
+branch  2 taken 163840000 (fallthrough)
+branch  3 taken 0 (throw)
+163840000:  181:            if(minimalDistance.second > distance)
+branch  0 taken 9139857 (fallthrough)
+branch  1 taken 154700143
+        -:  182:            {
+  9139857:  183:                minimalDistance.first = i;
+  9139857:  184:                minimalDistance.second = distance;
+        -:  185:            }
+        -:  186:        }
+        -:  187:
+  2560000:  188:        colorArray_quantized.push_back(palette[minimalDistance.first]);
+call    0 returned 2560000
+call    1 returned 2560000
+branch  2 taken 2560000 (fallthrough)
+branch  3 taken 0 (throw)
+        -:  189:    }
+        -:  190:
+        -:  191:
+        -:  192:    // Going back to a 2D Image
+     1601:  193:    for(size_t x(0); x < width; x++)
+branch  0 taken 1600 (fallthrough)
+branch  1 taken 1
+  2561600:  194:    for(size_t y(0); y < height; y++)
+branch  0 taken 2560000 (fallthrough)
+branch  1 taken 1600
+        -:  195:    {
+  2560000:  196:        result.setPixel(x,y,colorArray_quantized[(y * width) + x]);
+call    0 returned 2560000
+call    1 returned 2560000
+branch  2 taken 2560000 (fallthrough)
+branch  3 taken 0 (throw)
+        -:  197:    }
+        -:  198:
+        -:  199:
+        -:  200:    // return ...
+        -:  201:
+        2:  202:    return result;
+        -:  203:
+function _GLOBAL__sub_I__Z15quantize_randomN2sf5ImageEj called 1 returned 100% blocks executed 100%
+function _Z41__static_initialization_and_destruction_0ii called 1 returned 100% blocks executed 100%
+        3:  204:}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0
+branch  3 taken 1 (fallthrough)
+branch  4 taken 0

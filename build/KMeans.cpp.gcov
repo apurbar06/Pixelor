@@ -1,0 +1,189 @@
+        -:    0:Source:../src/KMeans.cpp
+        -:    0:Graph:KMeans.gcno
+        -:    0:Data:KMeans.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:// Code adapted from Peter Goldsborough's code
+        -:    2:// http://www.goldsborough.me/c++/python/cuda/2017/09/10/20-32-46-exploring_k-means_in_python,_c++_and_cuda/
+        -:    3:
+        -:    4:#include "KMeans.hpp"
+        -:    5:
+        -:    6:
+        -:    7:using Frame = std::vector<sf::Color>;
+        -:    8:
+        -:    9:
+function _Z6KMeansRSt6vectorIN2sf5ColorESaIS1_EEmm called 0 returned 0% blocks executed 0%
+    #####:   10:Frame KMeans(Frame& data, size_t K, size_t numberOfIterations)
+        -:   11:{
+        -:   12:
+        -:   13:
+        -:   14:
+    #####:   15:    std::random_device seed;
+call    0 never executed
+call    1 never executed
+branch  2 never executed
+branch  3 never executed
+call    4 never executed
+branch  5 never executed
+branch  6 never executed
+call    7 never executed
+call    8 never executed
+call    9 never executed
+call   10 never executed
+call   11 never executed
+call   12 never executed
+    #####:   16:    std::mt19937 rng(seed());
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+call    3 never executed
+branch  4 never executed
+branch  5 never executed
+    #####:   17:    std::uniform_int_distribution<size_t> indices(0, data.size() - 1);
+call    0 never executed
+call    1 never executed
+branch  2 never executed
+branch  3 never executed
+        -:   18:
+        -:   19:    // Pick centroids as random points from the dataset.
+    #####:   20:    Frame means(K, sf::Color::Black);
+call    0 never executed
+call    1 never executed
+branch  2 never executed
+branch  3 never executed
+call    4 never executed
+call    5 never executed
+    #####:   21:    for (auto& cluster : means)
+call    0 never executed
+call    1 never executed
+call    2 never executed
+branch  3 never executed
+branch  4 never executed
+call    5 never executed
+call    6 never executed
+    #####:   22:        cluster = data[indices(rng)];
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+call    3 never executed
+        -:   23:
+    #####:   24:    std::vector<size_t> assignments(data.size());
+call    0 never executed
+call    1 never executed
+call    2 never executed
+branch  3 never executed
+branch  4 never executed
+call    5 never executed
+call    6 never executed
+call    7 never executed
+call    8 never executed
+call    9 never executed
+    #####:   25:    for (size_t iteration(0); iteration < numberOfIterations; ++iteration)
+branch  0 never executed
+branch  1 never executed
+        -:   26:    {
+        -:   27:        // Find assignments.
+    #####:   28:        for (size_t point(0); point < data.size(); ++point)
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+        -:   29:        {
+        -:   30:
+    #####:   31:          double bestDistance = std::numeric_limits<double>::max();
+call    0 never executed
+    #####:   32:          size_t bestCluster = 0;
+        -:   33:
+    #####:   34:          for (size_t cluster(0); cluster < K; ++cluster)
+branch  0 never executed
+branch  1 never executed
+        -:   35:          {
+        -:   36:
+    #####:   37:            const double distance = euclidianDistance(data[point], means[cluster]);
+call    0 never executed
+call    1 never executed
+call    2 never executed
+branch  3 never executed
+branch  4 never executed
+        -:   38:
+    #####:   39:            if (distance < bestDistance)
+branch  0 never executed
+branch  1 never executed
+        -:   40:            {
+    #####:   41:              bestDistance = distance;
+    #####:   42:              bestCluster = cluster;
+        -:   43:            }
+        -:   44:          }
+        -:   45:          //std::cout << "clust  " << bestCluster << std::endl;
+    #####:   46:          assignments[point] = bestCluster;
+call    0 never executed
+        -:   47:        }
+        -:   48:
+        -:   49:        // Sum up and count points for each cluster.
+    #####:   50:        std::vector<sf::Vector3f> newMeans(K); // Needed as sf::Color r,g,b are uint8 variables
+call    0 never executed
+call    1 never executed
+branch  2 never executed
+branch  3 never executed
+call    4 never executed
+call    5 never executed
+call    6 never executed
+    #####:   51:        std::vector<size_t> counts(K, 0);
+call    0 never executed
+call    1 never executed
+branch  2 never executed
+branch  3 never executed
+call    4 never executed
+call    5 never executed
+call    6 never executed
+    #####:   52:        for (size_t point = 0; point < data.size(); ++point)
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+        -:   53:        {
+    #####:   54:            const auto cluster = assignments[point];
+call    0 never executed
+    #####:   55:            newMeans[cluster].x += data[point].r;
+call    0 never executed
+call    1 never executed
+    #####:   56:            newMeans[cluster].y += data[point].g;
+call    0 never executed
+call    1 never executed
+    #####:   57:            newMeans[cluster].z += data[point].b;
+call    0 never executed
+call    1 never executed
+    #####:   58:            counts[cluster] += 1;
+call    0 never executed
+        -:   59:        }
+        -:   60:
+        -:   61:        // Divide sums by counts to get new centroids.
+    #####:   62:        for (size_t cluster = 0; cluster < K; ++cluster)
+branch  0 never executed
+branch  1 never executed
+        -:   63:        {
+        -:   64:            // Turn 0/0 into 0/1 to avoid zero division.
+    #####:   65:            const auto count = std::max<size_t>(1, counts[cluster]);
+call    0 never executed
+call    1 never executed
+    #####:   66:            means[cluster].r = newMeans[cluster].x / count;
+call    0 never executed
+call    1 never executed
+    #####:   67:            means[cluster].g = newMeans[cluster].y / count;
+call    0 never executed
+call    1 never executed
+    #####:   68:            means[cluster].b = newMeans[cluster].z / count;
+call    0 never executed
+call    1 never executed
+        -:   69:        }
+        -:   70:    }
+        -:   71:
+    #####:   72:    return means;
+call    0 never executed
+        -:   73:
+function _GLOBAL__sub_I__Z6KMeansRSt6vectorIN2sf5ColorESaIS1_EEmm called 1 returned 100% blocks executed 100%
+function _Z41__static_initialization_and_destruction_0ii called 1 returned 100% blocks executed 100%
+        3:   74:}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0
+branch  3 taken 1 (fallthrough)
+branch  4 taken 0

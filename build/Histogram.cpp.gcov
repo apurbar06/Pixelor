@@ -1,0 +1,316 @@
+        -:    0:Source:../src/Histogram.cpp
+        -:    0:Graph:Histogram.gcno
+        -:    0:Data:Histogram.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "Histogram.hpp"
+        -:    2:
+        -:    3:
+        -:    4:
+        -:    5:using Frame = std::vector<sf::Color>;
+        -:    6:
+        -:    7:
+function _ZN9HistogramC2ERSt6vectorIN2sf5ColorESaIS2_EEj called 1 returned 100% blocks executed 75%
+        1:    8:Histogram::Histogram(Frame& data, unsigned nBuckets)
+        1:    9:: bucketsPerDimension((nBuckets <= DIMENSION_MAX)? nBuckets : DIMENSION_MAX )
+branch  0 taken 1 (fallthrough)
+branch  1 taken 0
+        2:   10:, bucketSize(DIMENSION_MAX / nBuckets)
+call    0 returned 1
+call    1 never executed
+        -:   11:{
+        1:   12:    this->build(data);
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:   13:}
+        -:   14:
+function _ZN9HistogramC2ERSt6vectorIN2sf5ColorESaIS2_EE called 0 returned 0% blocks executed 0%
+    #####:   15:Histogram::Histogram(Frame& data)
+    #####:   16:: Histogram(data,10)
+call    0 never executed
+    #####:   17:{}
+        -:   18:
+        -:   19:
+function _ZN9Histogram5buildERSt6vectorIN2sf5ColorESaIS2_EE called 1 returned 100% blocks executed 77%
+        1:   20:void Histogram::build(Frame& data)
+        -:   21:{
+        1:   22:    bins.clear();
+call    0 returned 1
+        -:   23:
+        2:   24:    std::string key;
+call    0 returned 1
+call    1 returned 1
+call    2 never executed
+  2560001:   25:    for(auto& color : data)
+call    0 returned 1
+call    1 returned 1
+call    2 returned 2560001
+branch  3 taken 2560000 (fallthrough)
+branch  4 taken 1
+call    5 returned 2560000
+call    6 returned 2560000
+        -:   26:    {
+  2560000:   27:        key = getPixelKey(color);
+call    0 returned 2560000
+branch  1 taken 2560000 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 2560000
+call    4 returned 2560000
+  2560000:   28:        if (bins.find(key) == bins.end())
+call    0 returned 2560000
+call    1 returned 2560000
+branch  2 taken 2560000 (fallthrough)
+branch  3 taken 0 (throw)
+call    4 returned 2560000
+branch  5 taken 474 (fallthrough)
+branch  6 taken 2559526
+        -:   29:        {
+      474:   30:            bins.insert(std::make_pair(key,size_t(1)));
+call    0 returned 474
+branch  1 taken 474 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 474
+branch  4 taken 474 (fallthrough)
+branch  5 taken 0 (throw)
+call    6 returned 474
+call    7 never executed
+        -:   31:        }
+        -:   32:        else
+        -:   33:        {
+  2559526:   34:            bins[key] += 1;
+call    0 returned 2559526
+branch  1 taken 2559526 (fallthrough)
+branch  2 taken 0 (throw)
+        -:   35:        }
+        -:   36:
+        -:   37:    }
+        1:   38:}
+        -:   39:
+function _ZNK9Histogram7displayEv called 0 returned 0% blocks executed 0%
+    #####:   40:void Histogram::display() const
+        -:   41:{
+    #####:   42:    for(auto& c : bins)
+call    0 never executed
+call    1 never executed
+call    2 never executed
+branch  3 never executed
+branch  4 never executed
+call    5 never executed
+call    6 never executed
+        -:   43:    {
+    #####:   44:        std::cout << "key: " << c.first << " q: " << c.second << std::endl;
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+call    3 never executed
+branch  4 never executed
+branch  5 never executed
+call    6 never executed
+branch  7 never executed
+branch  8 never executed
+call    9 never executed
+branch 10 never executed
+branch 11 never executed
+call   12 never executed
+branch 13 never executed
+branch 14 never executed
+        -:   45:    }
+    #####:   46:}
+        -:   47:
+        -:   48:// this function return the n most populated bins
+function _ZN9Histogram10getPaletteEj called 1 returned 100% blocks executed 78%
+        1:   49:Frame Histogram::getPalette(unsigned nColors)
+        -:   50:{
+        -:   51:    // First we sort the histogram
+        2:   52:    std::multimap<size_t, std::string> sortedHist = flip_map(bins);
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 1
+call    4 never executed
+        -:   53:
+        -:   54:    // then we make a palette with the first n color
+        1:   55:    Frame palette;
+call    0 returned 1
+        -:   56:
+        1:   57:    auto it = sortedHist.rbegin();
+call    0 returned 1
+       65:   58:    for(unsigned i(0) ; i < nColors ; i++)
+branch  0 taken 64 (fallthrough)
+branch  1 taken 1
+        -:   59:    {
+       64:   60:        std::cout << it->second << std::endl;
+call    0 returned 64
+branch  1 taken 64 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 64
+branch  4 taken 64 (fallthrough)
+branch  5 taken 0 (throw)
+call    6 returned 64
+branch  7 taken 64 (fallthrough)
+branch  8 taken 0 (throw)
+       64:   61:        palette.push_back(keyToColor(it->second));
+call    0 returned 64
+branch  1 taken 64 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 64
+branch  4 taken 64 (fallthrough)
+branch  5 taken 0 (throw)
+call    6 returned 64
+branch  7 taken 64 (fallthrough)
+branch  8 taken 0 (throw)
+call    9 never executed
+       64:   62:        it++;
+call    0 returned 64
+        -:   63:    }
+        -:   64:
+        2:   65:    return palette;
+        -:   66:
+        -:   67:}
+        -:   68:
+function _ZNK9Histogram11getPixelKeyB5cxx11ERN2sf5ColorE called 2560000 returned 100% blocks executed 65%
+  2560000:   69:std::string Histogram::getPixelKey(sf::Color& pixel) const
+        -:   70:{
+        -:   71:
+        -:   72:    // A key is computed depending on the bin size of the graph
+        -:   73:
+  2560000:   74:    unsigned redBucket      = std::floor(pixel.r / bucketSize);
+call    0 returned 2560000
+  2560000:   75:    unsigned greenBucket    = std::floor(pixel.g / bucketSize);
+call    0 returned 2560000
+  2560000:   76:    unsigned blueBucket     = std::floor(pixel.b / bucketSize);
+call    0 returned 2560000
+        -:   77:
+  2560000:   78:    return  std::to_string(redBucket)   + ":" + std::to_string(greenBucket) + ":" + std::to_string(blueBucket);
+call    0 returned 2560000
+call    1 returned 2560000
+branch  2 taken 2560000 (fallthrough)
+branch  3 taken 0 (throw)
+call    4 returned 2560000
+branch  5 taken 2560000 (fallthrough)
+branch  6 taken 0 (throw)
+call    7 returned 2560000
+branch  8 taken 2560000 (fallthrough)
+branch  9 taken 0 (throw)
+call   10 returned 2560000
+branch 11 taken 2560000 (fallthrough)
+branch 12 taken 0 (throw)
+call   13 returned 2560000
+branch 14 taken 2560000 (fallthrough)
+branch 15 taken 0 (throw)
+call   16 returned 2560000
+branch 17 taken 2560000 (fallthrough)
+branch 18 taken 0 (throw)
+call   19 returned 2560000
+call   20 returned 2560000
+call   21 returned 2560000
+call   22 returned 2560000
+call   23 returned 2560000
+call   24 returned 2560000
+call   25 never executed
+call   26 never executed
+call   27 never executed
+call   28 never executed
+call   29 never executed
+call   30 never executed
+        -:   79:
+        -:   80:}
+        -:   81:
+        -:   82:
+function _ZNK9Histogram12getBinWeightENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE called 0 returned 0% blocks executed 0%
+    #####:   83:size_t Histogram::getBinWeight(std::string key) const
+        -:   84:{
+    #####:   85:    size_t weight(0);
+        -:   86:
+    #####:   87:    auto bin = bins.find(key);
+call    0 never executed
+branch  1 never executed
+branch  2 never executed
+    #####:   88:    if (bin != bins.end())
+call    0 never executed
+call    1 never executed
+branch  2 never executed
+branch  3 never executed
+    #####:   89:        weight = bin->second;
+call    0 never executed
+        -:   90:
+    #####:   91:    return weight;
+        -:   92:}
+        -:   93:
+        -:   94:
+function _ZNK9Histogram12getBinWeightERN2sf5ColorE called 0 returned 0% blocks executed 0%
+    #####:   95:size_t Histogram::getBinWeight(sf::Color& color) const
+        -:   96:{
+    #####:   97:    return this->getBinWeight(this->getPixelKey(color));
+call    0 never executed
+call    1 never executed
+branch  2 never executed
+branch  3 never executed
+call    4 never executed
+call    5 never executed
+        -:   98:}
+        -:   99:
+        -:  100:
+        -:  101:// void Histogram::setBucketsPerDimension(unsigned nBuckets)
+        -:  102:// {
+        -:  103://     this->bucketsPerDimension = (nBuckets <= DIMENSION_MAX)? nBuckets : DIMENSION_MAX;;
+        -:  104://     this->bucketSize = DIMENSION_MAX / nBuckets;
+        -:  105://
+        -:  106://     build();
+        -:  107:// }
+        -:  108:
+        -:  109:
+        -:  110:
+function _ZN9Histogram10keyToColorERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE called 64 returned 100% blocks executed 74%
+       64:  111:sf::Color Histogram::keyToColor(const std::string& color)
+        -:  112:{
+      128:  113:    std::vector<unsigned> cmp;
+call    0 returned 64
+call    1 returned 64
+call    2 never executed
+      128:  114:    std::stringstream ss(color);
+call    0 returned 64
+call    1 returned 64
+branch  2 taken 64 (fallthrough)
+branch  3 taken 0 (throw)
+call    4 returned 64
+call    5 never executed
+      128:  115:    std::string item;
+call    0 returned 64
+call    1 returned 64
+call    2 never executed
+      448:  116:    while (std::getline(ss, item, ':'))
+call    0 returned 256
+branch  1 taken 256 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 256
+branch  4 taken 256 (fallthrough)
+branch  5 taken 0 (throw)
+branch  6 taken 192 (fallthrough)
+branch  7 taken 64
+        -:  117:    {
+      192:  118:        cmp.push_back(std::stoi(item));
+call    0 returned 192
+branch  1 taken 192 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 192
+branch  4 taken 192 (fallthrough)
+branch  5 taken 0 (throw)
+        -:  119:    }
+        -:  120:
+      128:  121:    return sf::Color(cmp[0]*bucketSize,cmp[1]*bucketSize,cmp[2]*bucketSize);
+call    0 returned 64
+call    1 returned 64
+call    2 returned 64
+call    3 returned 64
+branch  4 taken 64 (fallthrough)
+branch  5 taken 0 (throw)
+function _GLOBAL__sub_I__ZN9HistogramC2ERSt6vectorIN2sf5ColorESaIS2_EEj called 1 returned 100% blocks executed 100%
+function _Z41__static_initialization_and_destruction_0ii called 1 returned 100% blocks executed 100%
+        3:  122:}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0
+branch  3 taken 1 (fallthrough)
+branch  4 taken 0
