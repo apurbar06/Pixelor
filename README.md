@@ -3,6 +3,10 @@
 >This C++ program creates a pixelated version of an image.
 >It basically takes the average color of an area around a pixel and then fill the area with the said color.
 
+<img src="https://user-images.githubusercontent.com/55590340/205624544-f7c1c138-e62b-4313-84c6-43f7dfd03057.png" width=80% height=70%>
+<img src="https://user-images.githubusercontent.com/55590340/205624568-9690dda0-6c4d-4b09-aeca-877facbea5b0.png" width=40% height=40%>
+
+
 ## Building
 
 Requires the SFML library
